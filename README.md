@@ -5,8 +5,18 @@
 
 ## DISCLAIMER
 
-#### *RemoteBox* should be used with care and responsibility. I am not responsible for any **illegal** activities or use of this software. Use it at your own **risk**. This software is still in **BETA** stages so there is still much work to be done. Stay tuned in for updates. **Windows only compatibility** as of now (It uses pywin32).
+#### *RemoteBox* should be used with care and responsibility. I am not responsible for any **illegal** activities or use of this software. Use it at your own **risk**. This software is still in **BETA** stages so there is still much work to be done. Stay tuned in for updates. **Windows only compatibility** as of now (It uses pywin32). If you want to establish a not LAN connection you will have to use your public IP. At the moment there is no way of changing it unless you modify the server code to run via public IP. You will also have to enable *port forwarding*. This is a risky move that makes your home internet more vulnerable to attackers. Follow through at your own risk!
 
+
+## Roadmap:
+- Full HID support
+- Faster response times
+- FPS viewer
+- Executable
+- Faster FPS
+- Server-side GUI for maximum customization such as IP and Port changes, performance settings, etc.
+- Bug fixes
+- Performance improvments
 
 ## Patch Notes:
 
@@ -23,3 +33,4 @@
    - pyautogui==0.9.54
    - pywin32==306
 - Much, much more to come 
+to come 
