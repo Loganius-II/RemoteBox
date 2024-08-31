@@ -7,8 +7,8 @@ from time import sleep
 import win32api, win32con
 import math
 
-SERVER = socket.gethostbyname(socket.gethostname())
-PORT = 6000
+SERVER = socket.gethostbyname(socket.gethostname()) # Change this to your public IP if you so choose
+PORT = 6000 
 
 class Server(socket.socket):
     def __init__(self, SERVER, PORT) -> None:
