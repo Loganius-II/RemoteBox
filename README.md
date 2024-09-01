@@ -1,5 +1,5 @@
 # Welcome to RemoteBox!
-![RemoteBox]("IMG_1877.jpeg")
+![RemoteBox](https://github.com/Loganius-II/RemoteBox/blob/main/IMG_1877.jpeg)
 ## Overview:
 #### *RemoteBox* is TCP based cloud computing software that allows you to access your at-home PC anywhere! Just run the server on the computer you want to be remotely accessed, and run the client on any computer you want to access your server with. Its that simple.
 
