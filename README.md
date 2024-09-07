@@ -17,6 +17,7 @@
 - Server-side GUI for maximum customization such as IP and Port changes, performance settings, etc.
 - Bug fixes
 - Performance improvments
+- Argv initialization
 
 ## Patch Notes:
 
