@@ -21,7 +21,7 @@
 
 ## Patch Notes:
 
-### Version 0.0.1 - Beta
+### [Version 0.0.1 - Beta](src/0.0.1/)
 - Very basic proof of concept
 - Rough and quickly put together; not thorough
 - Features:
