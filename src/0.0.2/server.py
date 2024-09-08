@@ -97,57 +97,63 @@ def click(x: str | float, y: str | float) -> None:
 def get_res() -> tuple[int, int]:
     return win32api.GetSystemMetrics(0), win32api.GetSystemMetrics(1)
 
-'''
+
+
 @error_handle
 def check_and_click() -> None:
     global server
+    
+    # Get the server's screen resolution
+    resx, resy = get_res()
+    
     while True:
         try:
-            coords = server.client.recv(1024).decode()
-            coords = coords.split()
+            coords = server.client.recv(1024).decode().split()
             intention = coords[0]
-            x = int(coords[1])
-            y = int(coords[2])
-            # x = x * (1680 / 800) # 4096
-            # y = y * (1050 / 600) # 2160
-            
-            # Detect pixel resolution here
-            resx, resy = get_res()
-
-            x = x * (resx / 800)
-            y = y * (resy / 600)
-            x = math.ceil(x)
-            y = math.ceil(y)
 
             if intention == 'coord':
-                #click(int(x), int(y))
-                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
+                x = int(coords[1])
+                y = int(coords[2])
+                
+                # Scale the absolute position to match the server's screen size
+                x = math.ceil(x * (resx / 800))
+                y = math.ceil(y * (resy / 600))
+                
+                # Simulate the click
+                print(f"Mouse Down at {x}, {y}")
+                win32api.SetCursorPos((x, y))
+                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
 
             elif intention == 'mouseup':
-                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
+                x = int(coords[1])
+                y = int(coords[2])
+                
+                # Scale the absolute position to match the server's screen size
+                x = math.ceil(x * (resx / 800))
+                y = math.ceil(y * (resy / 600))
+                
+                print(f"Mouse Up at {x}, {y}")
+                win32api.SetCursorPos((x, y))
+                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
 
             elif intention == 'mousemove':
-                # PLEASE FIX
-                # DELTA CALCULATIONS AND MOUSE MOVEMENT
-                # This: win32api.SetCursorPos((x,y)) does not work
-                # for applications that require mouse velocity
+                delta_x = int(coords[1])
+                delta_y = int(coords[2])
 
-                if previous_x is not None and previous_y is not None:
-                    # Calculate relative movement
-                    delta_x = x - previous_x
-                    delta_y = y - previous_y
+                # Scale the deltas proportionally
+                scaled_delta_x = math.ceil(delta_x * (resx / 800))
+                scaled_delta_y = math.ceil(delta_y * (resy / 600))
 
-                    # Simulate relative movement
-                    win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, delta_x, delta_y, 0, 0)
+                # Apply the relative movement
+                print(f"Moving mouse by delta: {scaled_delta_x}, {scaled_delta_y}")
+                win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, scaled_delta_x, scaled_delta_y, 0, 0)
 
-                # Update previous position
-                previous_x, previous_y = x, y    
+        except Exception as e:
+            print(f"[ERROR] Exception occurred in check_and_click: {e}")
+            continue
 
-        except:
-            continue'''
 
-@error_handle
-def check_and_click() -> None:
+'''def check_and_click() -> None:
     global server
     # Declare previous_x and previous_y to track last mouse positions
     previous_x, previous_y = None, None
@@ -172,6 +178,7 @@ def check_and_click() -> None:
 
             elif intention == 'mouseup':
                 win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
+                print("mouse is now up")
 
             elif intention == 'mousemove':
                 # Calculate relative movement based on previous position
@@ -187,7 +194,7 @@ def check_and_click() -> None:
 
         except Exception as e:
             print(f"[ERROR] Exception occurred in check_and_click: {e}")
-            continue
+            continue'''
 
 
 '''        coords = coords.split()

@@ -51,6 +51,13 @@ def receive_image(sock, width, height) -> pygame.Surface:
     # Convert the received bytes back into an image
     return pygame.image.fromstring(img_data, (width, height), 'RGB')
 
+previous_x, previous_y = None, None
+
+def calculate_delta(x, y, prev_x, prev_y):
+    if prev_x is None or prev_y is None:
+        return 0, 0
+    return x - prev_x, y - prev_y
+
 while True:
     sleep(0.001)
     
@@ -67,8 +74,16 @@ while True:
             x, y = pygame.mouse.get_pos()
             s.send(f'coord {x} {y}'.encode())
 
+        if event.type == pygame.MOUSEBUTTONUP:
+            x,y = pygame.mouse.get_pos()
+            s.send(f'mouseup {x} {y}'.encode())
+
         if event.type == pygame.MOUSEMOTION:
             x, y = pygame.mouse.get_pos()
-            s.send(f'mousemove {x} {y}'.encode())
+            delta_x, delta_y = calculate_delta(x, y, previous_x, previous_y)
+            
+            # Update previous position
+            previous_x, previous_y = x, y
+            s.send(f'mousemove {delta_x} {delta_y}'.encode())
     screen.blit(image, (0, 0))
     pygame.display.flip()
