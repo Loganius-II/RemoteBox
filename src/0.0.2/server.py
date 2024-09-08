@@ -28,13 +28,13 @@ except:
     print('[INFO] "Settings.json" could not be found, default settings applied')
 
 HOST_ADDR_SET = settings["host_addr"]
-HOST_PORT_SET = int(settings["port"]["port"])
+HOST_PORT_SET = settings["port"]["port"]
 # Port forwarding has not been tested and will not be thorooughly implemented in this version
 
 # Setting the IP the server is run on
 SERVER = HOST_ADDR_SET if HOST_ADDR_SET != "auto" else socket.gethostbyname(socket.gethostname())
 # Setting port
-PORT = HOST_PORT_SET if HOST_PORT_SET != "auto" else 5900 #typical VNC port
+PORT = int(HOST_PORT_SET) if HOST_PORT_SET != "auto" else 5900 #typical VNC port
 
 print(f"[INFO] {SERVER}:{PORT}")
 
@@ -97,6 +97,7 @@ def click(x: str | float, y: str | float) -> None:
 def get_res() -> tuple[int, int]:
     return win32api.GetSystemMetrics(0), win32api.GetSystemMetrics(1)
 
+'''
 @error_handle
 def check_and_click() -> None:
     global server
@@ -130,7 +131,7 @@ def check_and_click() -> None:
                 # DELTA CALCULATIONS AND MOUSE MOVEMENT
                 # This: win32api.SetCursorPos((x,y)) does not work
                 # for applications that require mouse velocity
-                
+
                 if previous_x is not None and previous_y is not None:
                     # Calculate relative movement
                     delta_x = x - previous_x
@@ -143,7 +144,52 @@ def check_and_click() -> None:
                 previous_x, previous_y = x, y    
 
         except:
+            continue'''
+
+@error_handle
+def check_and_click() -> None:
+    global server
+    # Declare previous_x and previous_y to track last mouse positions
+    previous_x, previous_y = None, None
+    
+    while True:
+        try:
+            coords = server.client.recv(1024).decode()
+            coords = coords.split()
+            intention = coords[0]
+            x = int(coords[1])
+            y = int(coords[2])
+            
+            resx, resy = get_res()
+
+            x = x * (resx / 800)
+            y = y * (resy / 600)
+            x = math.ceil(x)
+            y = math.ceil(y)
+
+            if intention == 'coord':
+                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
+
+            elif intention == 'mouseup':
+                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
+
+            elif intention == 'mousemove':
+                # Calculate relative movement based on previous position
+                if previous_x is not None and previous_y is not None:
+                    delta_x = x - previous_x
+                    delta_y = y - previous_y
+
+                    # Simulate relative movement with mouse_event
+                    win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, delta_x, delta_y, 0, 0)
+
+                # Update previous position
+                previous_x, previous_y = x, y
+
+        except Exception as e:
+            print(f"[ERROR] Exception occurred in check_and_click: {e}")
             continue
+
+
 '''        coords = coords.split()
         x = int(coords[1])
         y = int(coords[2])
