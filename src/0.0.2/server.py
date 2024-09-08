@@ -126,6 +126,11 @@ def check_and_click() -> None:
                 win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
 
             elif intention == 'mousemove':
+                # PLEASE FIX
+                # DELTA CALCULATIONS AND MOUSE MOVEMENT
+                # This: win32api.SetCursorPos((x,y)) does not work
+                # for applications that require mouse velocity
+                
                 if previous_x is not None and previous_y is not None:
                     # Calculate relative movement
                     delta_x = x - previous_x
@@ -136,7 +141,7 @@ def check_and_click() -> None:
 
                 # Update previous position
                 previous_x, previous_y = x, y    
-                #win32api.SetCursorPos((x,y))
+
         except:
             continue
 '''        coords = coords.split()

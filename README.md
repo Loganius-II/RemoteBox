@@ -13,6 +13,7 @@
 
 ## Roadmap:
 - Full HID support
+  - I am thinking about using Auto Hot Key to implement HID with consistancy
 - Faster response times
 - FPS viewer
 - Executable
