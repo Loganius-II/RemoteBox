@@ -4,7 +4,7 @@ import pygame
 import io
 from time import sleep
 
-SERVER = '192.168.1.96'  # Your server's IP address
+SERVER = '192.168.1.101'  # Your server's IP address
 PORT = 6000
 
 pygame.init()

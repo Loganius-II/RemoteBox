@@ -28,7 +28,7 @@ except:
     print('[INFO] "Settings.json" could not be found, default settings applied')
 
 HOST_ADDR_SET = settings["host_addr"]
-HOST_PORT_SET = settings["port"]["port"]
+HOST_PORT_SET = int(settings["port"]["port"])
 # Port forwarding has not been tested and will not be thorooughly implemented in this version
 
 # Setting the IP the server is run on
@@ -73,10 +73,11 @@ class Server(socket.socket):
 def error_handle(func: Callable) -> Callable:
     def wrapper(*args):
         try:
-            func(*args)
+            return func(*args)
         except Exception as e:
             print("[ERROR] Exception occured because of the following:\n")
             print(e)
+        
     return wrapper
 
 @error_handle
@@ -125,7 +126,17 @@ def check_and_click() -> None:
                 win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
 
             elif intention == 'mousemove':
-                win32api.SetCursorPos((x,y))        
+                if previous_x is not None and previous_y is not None:
+                    # Calculate relative movement
+                    delta_x = x - previous_x
+                    delta_y = y - previous_y
+
+                    # Simulate relative movement
+                    win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, delta_x, delta_y, 0, 0)
+
+                # Update previous position
+                previous_x, previous_y = x, y    
+                #win32api.SetCursorPos((x,y))
         except:
             continue
 '''        coords = coords.split()

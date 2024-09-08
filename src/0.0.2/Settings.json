@@ -1,7 +1,7 @@
 {
     "host_addr": "auto",
     "port": {
-        "port": "auto",
+        "port": "6000",
         "port_fwd": false
     }
 }
