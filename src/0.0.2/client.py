@@ -84,6 +84,6 @@ while True:
             
             # Update previous position
             previous_x, previous_y = x, y
-            s.send(f'mousemove {delta_x} {delta_y}'.encode())
+            s.send(f'mousemove {delta_x} {delta_y} {x} {y}'.encode())
     screen.blit(image, (0, 0))
     pygame.display.flip()

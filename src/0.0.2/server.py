@@ -139,11 +139,14 @@ def check_and_click() -> None:
             elif intention == 'mousemove':
                 delta_x = int(coords[1])
                 delta_y = int(coords[2])
-
+                x = int(coords[3])
+                y = int(coords[4])
                 # Scale the deltas proportionally
                 scaled_delta_x = math.ceil(delta_x * (resx / 800))
                 scaled_delta_y = math.ceil(delta_y * (resy / 600))
-
+                scaled_x = math.ceil(x * (resx / 800))
+                scaled_y = math.ceil(y * (resy / 600))
+                win32api.SetCursorPos((scaled_x, scaled_y))
                 # Apply the relative movement
                 print(f"Moving mouse by delta: {scaled_delta_x}, {scaled_delta_y}")
                 win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, scaled_delta_x, scaled_delta_y, 0, 0)
