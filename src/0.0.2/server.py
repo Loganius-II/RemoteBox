@@ -9,7 +9,17 @@ import math
 import subprocess
 import json
 from typing import Callable
+import os
 
+'''
+TODO:
+- Ability to hold down keys
+- Outputing keys as their respective key, not a string e.g ' ' vs 'Space'
+- Directing output to the target application
+'''
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
+exe_directory = os.path.join(current_directory, "keys.exe")
 
 try:
     # Attempt to access settings
@@ -153,7 +163,8 @@ def check_and_click() -> None:
                 win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, scaled_delta_x, scaled_delta_y, 0, 0)
 
             elif intention == 'keydown':
-                subprocess.run([r'"./keys.exe"', intention , coords[1]])
+                print(f'{intention}, {coords[1]}')
+                subprocess.run([exe_directory, intention , coords[1]])
 
         except Exception as e:
             print(f"[ERROR] Exception occurred in check_and_click: {e}")
