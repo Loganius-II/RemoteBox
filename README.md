@@ -16,7 +16,7 @@
   - I am thinking about using Auto Hot Key to implement HID with consistancy
 - Faster response times
 - FPS viewer
-- Executable
+- Installation wizard
 - Faster FPS
 - Server-side GUI for maximum customization such as IP and Port changes, performance settings, etc.
 - Bug fixes

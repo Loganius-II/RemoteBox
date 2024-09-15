@@ -6,6 +6,7 @@ import threading
 from time import sleep
 import win32api, win32con
 import math
+import subprocess
 import json
 from typing import Callable
 
@@ -150,6 +151,9 @@ def check_and_click() -> None:
                 # Apply the relative movement
                 print(f"Moving mouse by delta: {scaled_delta_x}, {scaled_delta_y}")
                 win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, scaled_delta_x, scaled_delta_y, 0, 0)
+
+            elif intention == 'keydown':
+                subprocess.run([r'"./keys.exe"', intention , coords[1]])
 
         except Exception as e:
             print(f"[ERROR] Exception occurred in check_and_click: {e}")
