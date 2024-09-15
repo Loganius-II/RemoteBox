@@ -14,6 +14,10 @@
 ## Roadmap:
 - Full HID support
   - I am thinking about using Auto Hot Key to implement HID with consistancy
+  - Outputting the keys to the targetted application
+  - Right clicking
+  - Scrolling
+  - HID bug fixes
 - Faster response times
 - FPS viewer
 - Installation wizard
@@ -41,4 +45,12 @@
 to come 
 
 ### [Version 0.0.2 - Beta](src/0.0.2/)
- - **Under construction!!!**
+ - Testing AHK to see if I like that
+ - Small improvements
+ - Editable `Settings.json` file
+ - HID inputs:
+   - The target computer outputs abc...
+   - *Special keys* such as space and shift type as 'Shift'
+   - This will be fixed in the future
+
+ - More updates in the works! Stay tuned!
