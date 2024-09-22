@@ -116,7 +116,7 @@ def check_and_click() -> None:
     
     # Get the server's screen resolution
     resx, resy = get_res()
-    
+    shift_active = False
     while True:
         try:
             coords = server.client.recv(1024).decode().split()
@@ -163,8 +163,19 @@ def check_and_click() -> None:
                 win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, scaled_delta_x, scaled_delta_y, 0, 0)
 
             elif intention == 'keydown':
-                print(f'{intention}, {coords[1]}')
-                subprocess.run([exe_directory, intention , coords[1]])
+                if not shift_active:
+                    print(f'{intention}, {coords[1]}')
+                    subprocess.run([exe_directory, intention , coords[1], "Lowercase"])
+                else:
+                    print(f'{intention}, {coords[1]}')
+                    subprocess.run([exe_directory, intention , coords[1], "Uppercase"])
+                if coords[1] == 'LShift':
+                    shift_active = True
+                
+            
+            elif intention == 'keyup' and coords[1] == 'LShift':
+                shift_active = False
+                
 
         except Exception as e:
             print(f"[ERROR] Exception occurred in check_and_click: {e}")
