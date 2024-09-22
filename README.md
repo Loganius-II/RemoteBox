@@ -54,3 +54,6 @@ to come
    - This will be fixed in the future
 
  - More updates in the works! Stay tuned!
+
+ ### [Version 0.1.0 - Beta](src/0.1.0/)
+ - Work in progress
