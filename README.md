@@ -20,7 +20,6 @@
   - HID bug fixes
 - Faster response times
 - FPS viewer
-- Installation wizard
 - Faster FPS
 - Server-side GUI for maximum customization such as IP and Port changes, performance settings, etc.
 - Bug fixes
@@ -55,5 +54,14 @@ to come
 
  - More updates in the works! Stay tuned!
 
- ### [Version 0.1.0 - Beta](src/0.1.0/)
- - Work in progress
+ ### [Version 0.1.0 - Beta](src/0.1.0/RemoteBoxSetup.exe)
+ - Setup wizard is finally here!
+   - Installs source code (Maybe I will make it install an executable at some point)
+ - Small changes
+ - The next update should see:
+    - Ability to hold down keys
+    - Outputing keys as their respective key, not a string e.g ' ' vs 'Space' or ability to use the arrows
+    - Working on that full HID support which is top level priority now
+
+### [Version 0.2.0]()
+#### Coming Soon!
