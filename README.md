@@ -54,7 +54,7 @@ to come
 
  - More updates in the works! Stay tuned!
 
- ### [Version 0.1.0 - Beta](src/0.1.0/RemoteBoxSetup.exe)
+ ### [Version 0.1.0 - Beta](https://github.com/Loganius-II/RemoteBox/raw/refs/heads/main/src/0.1.0/RemoteBoxSetup.exe)
  - Setup wizard is finally here!
    - Installs source code (Maybe I will make it install an executable at some point)
  - Small changes
